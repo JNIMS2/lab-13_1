@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewData["Title"] = "GetForm";
+}
+
+<h1>GetForm</h1>
+@*i will figure out where to put the message warnings. also should i hve picked a diff type of warning. i don't just see warning as an option*@
+<div id="message" class="warning"></div>
+
+<form id="myform" method="post" action="/home/useform">
+    FirstName: <input type="text" id="FirstName" name="FirstName" /><br />
+    LastName: <input type="text" id="LastName" name="LastName" /><br />
+    Email: <input type="email" id="Email" name="Email" /><br />
+    Password: <input type="password" id="Password" name="Password" /><br />
+    Confirm Password: <input type="password" id="ConfirmPassword" name="ConfirmPassword" /><br />
+    
+</form>
+<button id="SubmitButton">Submit</button>
+
+
+<script>
+
+
+
+</script>
