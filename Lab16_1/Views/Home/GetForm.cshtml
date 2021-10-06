@@ -3,23 +3,79 @@
     ViewData["Title"] = "GetForm";
 }
 
-<h1>GetForm</h1>
-@*i will figure out where to put the message warnings. also should i hve picked a diff type of warning. i don't just see warning as an option*@
+<style>
+    .warning {
+        font-family:Verdana;
+        font-size:medium;
+        font-weight: bold;
+        color: cornflowerblue;
+
+    }
+</style>
+<h1>Submit Info:</h1>
+
+@*should i have picked a diff type of warning? i don't just see warning as an option*@
 <div id="message" class="warning"></div>
 
-<form id="myform" method="post" action="/home/useform">
-    FirstName: <input type="text" id="FirstName" name="FirstName" /><br />
-    LastName: <input type="text" id="LastName" name="LastName" /><br />
-    Email: <input type="email" id="Email" name="Email" /><br />
-    Password: <input type="password" id="Password" name="Password" /><br />
-    Confirm Password: <input type="password" id="ConfirmPassword" name="ConfirmPassword" /><br />
+<form class="form-group" id="myform" method="post" action="/home/useform">
+    <label>FirstName: </label> <input  class="form-control" type="text" id="FirstName" name="FirstName" /><span class="warning" id="FirstNameWarning"></span><br />
+    <label>LastName: </label><input  class="form-control" type="text" id="LastName" name="LastName" /><span class="warning" id="LastNameWarning"></span><br />
+    <label>Email: </label><input class="form-control" type="email" id="Email" name="Email" /><span class="warning" id="EmailWarning"></span><br />
+    <label>Password:</label>  <input  class="form-control" type="password" id="Password" name="Password" /><span class="warning" id="PasswordWarning"></span><br />
+    <label>Confirm Password: </label><input class="form-control" type="password" id="ConfirmPassword" name="ConfirmPassword" /><span class="warning" id="ConfirmPasswordWarning"></span><br />
+    <input type="submit" value="Submit Info" />
     
 </form>
-<button id="SubmitButton">Submit</button>
+
 
 
 <script>
+    let myform = document.querySelector('#myform');
 
+    function ValidatetheForm() {
+        let firstname = document.querySelector('#FirstName').value;
+        let lastname = document.querySelector('#LastName').value;
+        let email = document.querySelector('#Email').value;
+        let password = document.querySelector('#Password').value;
+        let confirmpassword = document.querySelector('#ConfirmPassword').value;
+        //should be regex for pw requirements--pretty sure
+        let regexck = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@@#$%^&*])");
+        let result = true;
+
+        if (firstname.length < 2) {
+            document.querySelector('#FirstNameWarning').innerHTML = 'First Name must be 2 characters long';
+            return false;
+        }
+        if (lastname.length < 2) {
+            document.querySelector('#LastNameWarning').innerHTML = 'Last Name must be 2 characters long';
+            return false;
+        }
+        if (email.indexOf('.') == -1 || email.indexOf('@@') == -1) {
+            document.querySelector('#EmailWarning').innerHTML = 'Email must contain both an @@ and a .';
+            return false;
+        }
+        if (!regexck.test(password)) {
+            document.querySelector('#PasswordWarning').innerHTML = 'password requirements: 1 uppercase, 1 lowercase, 1 number, 1 symbol';
+            return false;
+        }
+        if (password != confirmpassword) {
+            document.querySelector('#ConfirmPasswordWarning').innerHTML = 'Passwords must match!';
+            return false;
+        }
+      
+       
+        return result;
+
+    }
+    myform.addEventListener('submit', function (ev) {
+        if (ValidatetheForm() == false) {
+            console.log('Validation falied, skipping submit');
+            ev.preventDefault();
+        }
+    });
 
 
 </script>
+
+@*Hey Antonio, it could be that it is super late at night, but I think i'm missing the 'grab info' part of this but,
+ i don't remember what that means...is that where i'm supposed to add separate event listeners for the fields?'*@

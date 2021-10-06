@@ -35,7 +35,7 @@ namespace Lab16_1.Controllers
         //im gonna figure this use form out in a bit
         public IActionResult UseForm() 
         {
-            return Content("Please enter in all fields");
+            return Content("thanks for submitting info!");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
